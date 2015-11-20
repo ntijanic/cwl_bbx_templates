@@ -1,0 +1,39 @@
+class: CommandLineTool
+inputs:
+  - id: "#task"
+    type: string
+    inputBinding:
+      position: 0
+  - id: "#fastq"
+    inputBinding:
+      position: 1
+    type:
+      type: array
+      items: File
+# Array items should be the records defined below.
+# Currently just using File arrays and assuming single end reads.
+# TODO: Find out where the Job order is serialized and have the wrapper read from it rather than from arguments.
+#        type: record
+#        name: BBXFastq
+#        fields:
+#          - name: value
+#            type: File
+#          - name: id
+#            type: string
+#          - name: type
+#            type: string
+outputs:
+  - id: "#fasta"
+    type: File
+
+requirements:
+  - class: CreateFileRequirement
+    fileDef:
+      - filename: sra_wrapper.py
+        fileContent: {include: sra_wrapper.py}
+
+# Uncomment following lines to use Docker. With no DockerRequirement, this will run locally.
+#  - class: DockerRequirement
+#    dockerPull: "debian"  # Change to docker image of assembler in bbx
+
+baseCommand: [python, sra_wrapper.py, echo]  # Change echo to entrypoint

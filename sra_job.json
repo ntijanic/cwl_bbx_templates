@@ -1,0 +1,4 @@
+{
+  "task": "default",
+  "fastq": [{"class": "File", "path": "pe1.fq"}, {"class": "File", "path": "pe2.fq"}]
+}
